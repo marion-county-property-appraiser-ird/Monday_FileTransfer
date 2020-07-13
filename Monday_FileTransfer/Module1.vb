@@ -11,6 +11,7 @@ Module Module1
     ' Private fromFolder As String = String.Empty '"C:\Users\ssherouse\Documents\MerlinDataExtracts\"
     Private folderDate As String = DateTime.Now.Year & DateTime.Now.Month.ToString.PadLeft(2, "0") & DateTime.Now.Day.ToString.PadLeft(2, "0")
     Private fridayDate As String
+    Private datedfolder As String = "\\MCPAFILESERVER\K Drive\Polygons\MCPA\"
 
     Sub Main()
         Console.Title = "MONDAY ROUTINE"
@@ -57,6 +58,10 @@ Module Module1
             Console.WriteLine("Now Zipping MCPAPOLYGONS for County FTP....please wait")
             ZipMCPAPOLYGONS()
 
+            'this zips all futurepapoly files and copies it to FTP for county
+            Console.WriteLine("Now Zipping FUTUREPAPOLY for County FTP....please wait")
+            ZipFUTUREPAPOLY()
+
             'this copies all specific files from dated folder to Merlin server for map update
             Console.WriteLine("Now Copying ALL files from Dated folder to W:\MiscLayerData\Parcel for Map Update....please wait")
             CopyForMapUpdate()
@@ -83,16 +88,16 @@ Module Module1
 
             If Path.GetExtension(sFile).ToUpper = ".CSV" Then
                 If newFile.Contains("AddressExtractView") Or newFile.Contains("DescriptionExtractView") Or newFile.Contains("MiscImprovementExtractView") Or newFile.Contains("NameExtractView") Or newFile.Contains("ParentParcelExtractView") Or newFile.Contains("SitusAddressExtractView") Then
-                    If Not MoveFiles(sFile, "\\MCPAFILESERVER\K Drive\Polygons\MCPA\" & fridayDate & "\Datarecs" & fridayDate & "\MCPAEXTRACT\" & newFile & ".txt") Then Return
+                    If Not MoveFiles(sFile, datedfolder & fridayDate & "\Datarecs" & fridayDate & "\MCPAEXTRACT\" & newFile & ".txt") Then Return
                 ElseIf newFile.Contains("LandExtractView") Or newFile.Contains("MasterParcelExtractView") Or newFile.Contains("MobileHomeExtractView") Then
-                    If Not CopyFiles(sFile, "\\MCPAFILESERVER\K Drive\Polygons\MCPA\" & fridayDate & "\Datarecs" & fridayDate & "\MCPAEXTRACT\" & newFile & ".txt", False) Then Return
-                    If Not CopyFiles(sFile, "\\MCPAFILESERVER\K Drive\Polygons\MCPA\" & fridayDate & "\Datarecs" & fridayDate & "\" & newFile & ".txt", False) Then Return
+                    If Not CopyFiles(sFile, datedfolder & fridayDate & "\Datarecs" & fridayDate & "\MCPAEXTRACT\" & newFile & ".txt", False) Then Return
+                    If Not CopyFiles(sFile, datedfolder & fridayDate & "\Datarecs" & fridayDate & "\" & newFile & ".txt", False) Then Return
                 Else
-                    If Not CopyFiles(sFile, "\\MCPAFILESERVER\K Drive\Polygons\MCPA\" & fridayDate & "\Datarecs" & fridayDate & "\" & newFile & ".txt", False) Then Return
+                    If Not CopyFiles(sFile, datedfolder & fridayDate & "\Datarecs" & fridayDate & "\" & newFile & ".txt", False) Then Return
                 End If
             ElseIf Path.GetExtension(sFile).ToUpper = ".TXT" Then
                 Path.GetFileName(sFile)
-                CopyFiles(sFile, "\\MCPAFILESERVER\K Drive\Polygons\MCPA\" & fridayDate & "\Datarecs" & fridayDate & "\" & Path.GetFileName(sFile), False)
+                CopyFiles(sFile, datedfolder & fridayDate & "\Datarecs" & fridayDate & "\" & Path.GetFileName(sFile), False)
             End If
         Next
 
@@ -115,12 +120,12 @@ Module Module1
             sFile = files.Item(i).ToString
             newFile = Path.GetFileNameWithoutExtension(sFile)
 
-            If newFile.Contains("papoly") Then
-                If Not MoveFiles(sFile, buPath & newFile) Then Return
-            End If
+            'If newFile.Contains("papoly") Then
+            '    If Not MoveFiles(sFile, buPath & Path.GetFileName(sFile)) Then Return
+            'End If
 
             If newFile.Contains("OAS") And newFile IsNot "OAS" & fridayDate & ".dbf" Then
-                If Not MoveFiles(sFile, buPath & newFile) Then Return
+                If Not MoveFiles(sFile, buPath & Path.GetFileName(sFile)) Then Return
             End If
         Next
     End Sub
@@ -140,13 +145,13 @@ Module Module1
             newFile = Path.GetFileNameWithoutExtension(sFile)
 
             If newFile.Contains("papoly") Then
-                If Not CopyFiles(sFile, endPath & newFile, True) Then Return
+                If Not CopyFiles(sFile, endPath & Path.GetFileName(sFile), True) Then Return
             End If
         Next
     End Sub
 
     Private Sub ZipMCPAEXTRACTS()
-        Dim startPath As String = "\\MCPAFILESERVER\K Drive\Polygons\MCPA\" & fridayDate & "\Datarecs" & fridayDate & "\MCPAEXTRACT\"
+        Dim startPath As String = datedfolder & fridayDate & "\Datarecs" & fridayDate & "\MCPAEXTRACT\"
         Dim zipPathDest As String = "\\Mcpaserver6\ims\ApacheFTP\res\home\mcbcc\MCPA\MCPAEXTRACT.zip"
 
         If Not DeleteFiles(zipPathDest) Then Return
@@ -165,7 +170,7 @@ Module Module1
         Using archive As ZipArchive = ZipFile.Open(zipPath1, ZipArchiveMode.Update)
             'need to remove the old one
             For x As Integer = 0 To archive.Entries.Count - 1
-                archive.Entries.Item(x).Delete()
+                archive.Entries.Item(0).Delete()
             Next
 
             'this adds the new file to zip file
@@ -176,7 +181,7 @@ Module Module1
         Using archive As ZipArchive = ZipFile.Open(zipPath2, ZipArchiveMode.Update)
             'need to remove the old one
             For x As Integer = 0 To archive.Entries.Count - 1
-                archive.Entries.Item(x).Delete()
+                archive.Entries.Item(0).Delete()
             Next
 
             'this adds the new file to zip file
@@ -194,7 +199,7 @@ Module Module1
         Using archive As ZipArchive = ZipFile.Open(zipPath1, ZipArchiveMode.Update)
             'need to remove the old one
             For x As Integer = 0 To archive.Entries.Count - 1
-                archive.Entries.Item(x).Delete()
+                archive.Entries.Item(0).Delete()
             Next
 
             'this adds the new file to zip file
@@ -227,7 +232,7 @@ Module Module1
             'need to remove the old one
 
             For x As Integer = 0 To archive.Entries.Count - 1
-                archive.Entries.Item(x).Delete()
+                archive.Entries.Item(0).Delete()
             Next
 
             'this adds the new file to zip file
@@ -248,8 +253,39 @@ Module Module1
         If Not CopyFiles(zipPath1, zipPathDest, True) Then Return
     End Sub
 
+    Private Sub ZipFUTUREPAPOLY()
+        Dim folderName As String = datedfolder & fridayDate & "\"
+        Dim zipFolder As String = "\\Mcpaserver6\ims\ApacheFTP\res\home\mcbcc\MCPA\"
+        Dim zipFile2 As String = "Futurepapoly.cpg"
+        Dim zipFile3 As String = "Futurepapoly.dbf"
+        Dim zipFile4 As String = "Futurepapoly.prj"
+        Dim zipFile5 As String = "Futurepapoly.sbn"
+        Dim zipFile6 As String = "Futurepapoly.sbx"
+        Dim zipFile7 As String = "Futurepapoly.shp"
+        Dim zipFile8 As String = "Futurepapoly.shx"
+        Dim zipPath1 As String = "\\Mcpaserver6\ims\ApacheFTP\res\home\mcbcc\MCPA\Futurepapoly.zip"
+
+        'create a new entry in a zip archive from an existing file and extract the archive contents
+        Using archive As ZipArchive = ZipFile.Open(zipPath1, ZipArchiveMode.Update)
+            'need to remove the old one
+
+            For x As Integer = 0 To archive.Entries.Count - 1
+                archive.Entries.Item(0).Delete()
+            Next
+
+            'this adds the new file to zip file
+            archive.CreateEntryFromFile(folderName & zipFile2, zipFile2, CompressionLevel.Fastest)
+            archive.CreateEntryFromFile(folderName & zipFile3, zipFile3, CompressionLevel.Fastest)
+            archive.CreateEntryFromFile(folderName & zipFile4, zipFile4, CompressionLevel.Fastest)
+            archive.CreateEntryFromFile(folderName & zipFile5, zipFile5, CompressionLevel.Fastest)
+            archive.CreateEntryFromFile(folderName & zipFile6, zipFile6, CompressionLevel.Fastest)
+            archive.CreateEntryFromFile(folderName & zipFile7, zipFile7, CompressionLevel.Fastest)
+            archive.CreateEntryFromFile(folderName & zipFile8, zipFile8, CompressionLevel.Fastest)
+        End Using
+    End Sub
+
     Private Sub CopyForMapUpdate()
-        Dim startDEST As String = "\\MCPAFILESERVER\K Drive\Polygons\MCPA\"
+        ' Dim startDEST As String = datedfolder
         Dim endDEST As String = "\\MERLIN\Merlin\MiscLayerData\Parcel\"
         Dim i, k As Integer
         Dim sFile As String = Nothing
@@ -274,7 +310,7 @@ Module Module1
         Next
 
         'Copying ALL files from Dated folder
-        files = My.Computer.FileSystem.GetFiles(startDEST & fridayDate, FileIO.SearchOption.SearchTopLevelOnly, "*.*")
+        files = My.Computer.FileSystem.GetFiles(datedfolder & fridayDate, FileIO.SearchOption.SearchTopLevelOnly, "*.*")
         For i = 0 To files.Count - 1
             sFile = files.Item(i).ToString
             newFile = Path.GetFileNameWithoutExtension(sFile)
@@ -296,7 +332,6 @@ Module Module1
     End Sub
 
     Private Sub CopyToJoe()
-        Dim startDEST As String = "\\MCPAFILESERVER\K Drive\Polygons\MCPA\"
         Dim endDEST As String = "\\\MCPAFILESERVER\K Drive\Polygons\MCPA\2003_MassImpVacAprsl\SSS_JOE\FreeancePAPOLY\"
         Dim i As Integer
         Dim sFile As String = Nothing
@@ -304,7 +339,7 @@ Module Module1
         Dim files As ReadOnlyCollection(Of String)
 
         'Copying ALL files from Dated folder
-        files = My.Computer.FileSystem.GetFiles(startDEST & fridayDate, FileIO.SearchOption.SearchTopLevelOnly, "*.*")
+        files = My.Computer.FileSystem.GetFiles(datedfolder & fridayDate, FileIO.SearchOption.SearchTopLevelOnly, "*.*")
         For i = 0 To files.Count - 1
             sFile = files.Item(i).ToString
             newFile = Path.GetFileNameWithoutExtension(sFile)
@@ -327,11 +362,12 @@ Module Module1
 #Region "MoveCopyDeleteVerify"
     Private Function CopyFiles(ByVal fromFolder As String, ByVal toFolder As String, overWriteFiles As Boolean) As Boolean
         If VerifyFileExist(fromFolder) = True Then
-            If VerifyFileExist(toFolder) = False Then
-                My.Computer.FileSystem.CopyFile(fromFolder, toFolder, overWriteFiles)
-            Else
-                Console.WriteLine("A file with the name " & fromFolder & " already exists.")
-            End If
+            '   If VerifyFileExist(toFolder) = False Then
+            'If overWriteFiles = True Then
+            My.Computer.FileSystem.CopyFile(fromFolder, toFolder, overWriteFiles)
+            'Else
+            '    Console.WriteLine("A file with the name " & fromFolder & " already exists.")
+            'End If
         Else
             MsgBox("The file " & fromFolder & " you are attempting to copy does not exist.")
             Return False
