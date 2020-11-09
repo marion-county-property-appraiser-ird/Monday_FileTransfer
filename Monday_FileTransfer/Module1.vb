@@ -473,7 +473,7 @@ Module Module1
             Or newFile.Contains("COMM") Or newFile.Contains("Exempt21") Or newFile.Contains("Freepapoly") Or newFile.Contains("Futurepapoly") _
             Or newFile.Contains("FutureFreepapoly") Or newFile.Contains("LandModel") Or newFile.Contains("lndchg21") Or newFile.Contains("lrateac") _
             Or newFile.Contains("lratenoac") Or newFile.Contains("N Parcel") Or newFile.Contains("NewAg") Or newFile.Contains("No_lndRTEchg_18_to_20_All") _
-            Or newFile.Contains("nooasis") Or newFile.Contains("papoly") Or newFile.Contains("parcel") Or newFile.Contains("Permits") Or newFile.Contains("tang") Or newFile.Contains("Valchg21") Then
+            Or newFile.Contains("nooasis") Or newFile.Contains("papoly") Or newFile.Contains("parcel") Or newFile.Contains("tang") Or newFile.Contains("Valchg21") Then
                 If Not DeleteFiles(sFile) Then Return
             End If
         Next
@@ -488,7 +488,7 @@ Module Module1
             Or newFile.Contains("COMM") Or newFile.Contains("Exempt21") Or newFile.Contains("Freepapoly") Or newFile.Contains("Futurepapoly") _
             Or newFile.Contains("FutureFreepapoly") Or newFile.Contains("LandModel") Or newFile.Contains("lndchg21") Or newFile.Contains("lrateac") _
             Or newFile.Contains("lratenoac") Or newFile.Contains("N Parcel") Or newFile.Contains("NewAg") Or newFile.Contains("No_lndRTEchg_18_to_20_All") _
-            Or newFile.Contains("nooasis") Or newFile.Contains("papoly") Or newFile.Contains("parcel") Or newFile.Contains("Permits") Or newFile.Contains("tang") Or newFile.Contains("Valchg21") Then
+            Or newFile.Contains("nooasis") Or newFile.Contains("papoly") Or newFile.Contains("parcel") Or newFile.Contains("tang") Or newFile.Contains("Valchg21") Then
                 If Not CopyFiles(sFile, endDEST & Path.GetFileName(sFile), False) Then Return
             End If
         Next
@@ -515,7 +515,7 @@ Module Module1
             Or newFile.Contains("FutureFreepapoly") Or newFile.Contains("LandModel") Or newFile.Contains("lndchg21") Or newFile.Contains("lrateac") _
             Or newFile.Contains("lratenoac") Or newFile.Contains("N Parcel") Or newFile.Contains("NewAg") Or newFile.Contains("No_lndRTEchg_18_to_20_All") _
             Or newFile.Contains("nooasis") Or newFile.Contains("papoly") Or newFile.Contains("parcel") Or newFile.Contains("Parcel_LNDUSE_G") _
-            Or newFile.Contains("Permits") Or newFile.Contains("tang") Or newFile.Contains("Valchg21") Then
+            Or newFile.Contains("tang") Or newFile.Contains("Valchg21") Then
                 If Not CopyFiles(sFile, endDEST & Path.GetFileName(sFile), True) Then Return
             End If
         Next
