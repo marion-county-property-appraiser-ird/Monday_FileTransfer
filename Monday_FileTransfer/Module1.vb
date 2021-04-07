@@ -91,6 +91,7 @@ Module Module1
                 ZipToCountyFTP("Lot_Replat", "\\MCPAFILESERVER\K Drive\Polygons\MCPA\unchanged_Polys\", "\\Mcpaserver6\ims\ApacheFTP\res\home\mcbcc\MCPA\")
                 ZipToCountyFTP("lots", "\\MCPAFILESERVER\K Drive\Polygons\MCPA\unchanged_Polys\", "\\Mcpaserver6\ims\ApacheFTP\res\home\mcbcc\MCPA\")
                 ZipToCountyFTP("MAP_INDEX", "\\MCPAFILESERVER\K Drive\Polygons\MCPA\unchanged_Polys\", "\\Mcpaserver6\ims\ApacheFTP\res\home\mcbcc\MCPA\")
+                ZipToCountyFTP("millage_groups", "\\MCPAFILESERVER\K Drive\Polygons\MCPA\unchanged_Polys\", "\\Mcpaserver6\ims\ApacheFTP\res\home\mcbcc\MCPA\")
                 ZipToCountyFTP("municipalities", "\\MCPAFILESERVER\K Drive\Polygons\MCPA\unchanged_Polys\", "\\Mcpaserver6\ims\ApacheFTP\res\home\mcbcc\MCPA\")
                 ZipToCountyFTP("section", "\\MCPAFILESERVER\K Drive\Polygons\MCPA\unchanged_Polys\", "\\Mcpaserver6\ims\ApacheFTP\res\home\mcbcc\MCPA\")
                 ZipToCountyFTP("subhist", "\\MCPAFILESERVER\K Drive\Polygons\MCPA\unchanged_Polys\", "\\Mcpaserver6\ims\ApacheFTP\res\home\mcbcc\MCPA\")
@@ -107,6 +108,7 @@ Module Module1
                 'Lot_Replat
                 'lots
                 'MAP_INDEX
+                'millage_groups
                 'municipalities
                 'section
                 'subhist
@@ -249,10 +251,6 @@ Module Module1
     '    End Using
     'End Sub
     Private Sub ZipMONTHLY(filename As String)
-        Dim origLoc As String = "K:\Polygons\MCPA\unchanged_Polys\"
-        Dim wDrive As String = "\\MERLIN\Merlin\MiscLayerData\Parcel\Monthly updates"
-        Dim zipFolder As String = "\\Mcpaserver6\ims\ApacheFTP\res\home\mcbcc\MCPA\"
-
         Dim zipFile2 As String = filename & ".cpg"
         Dim zipFile3 As String = filename & ".dbf"
         Dim zipFile4 As String = filename & ".prj"
@@ -279,43 +277,6 @@ Module Module1
             archive.CreateEntryFromFile(datedfolderWDate & zipFile7, zipFile7, CompressionLevel.Fastest)
             archive.CreateEntryFromFile(datedfolderWDate & zipFile8, zipFile8, CompressionLevel.Fastest)
         End Using
-
-
-        'I copy from current location to W:\MiscLayerData\Parcel\Monthly updates
-
-        'I zip each one & copy to V:\MCPA & K:\Mcpa
-
-        'K:\Polygons\MCPA\unchanged_Polys\Blocks.shp
-
-        'K:\Polygons\MCPA\unchanged_Polys\Condo.shp
-
-        'K:\Polygons\MCPA\unchanged_Polys\County_Boundary.shp
-
-        'K:\Polygons\MCPA\unchanged_Polys\lots.shp
-
-        'K:\Polygons\MCPA\unchanged_Polys\section.shp
-
-        'K:\Polygons\MCPA\unchanged_Polys\subhist.shp
-
-        'K:\Polygons\MCPA\unchanged_Polys\subbdy.shp
-
-        'K:\Polygons\MCPA\unchanged_Polys\Township.shp
-
-        'K:\Polygons\MCPA\unchanged_Polys\water.shp
-
-
-        'I zip each one & copy to V: \MCPA
-
-        'K:\Polygons\MCPA\unchanged_Polys\Govtlot.shp
-
-        'K:\Polygons\MCPA\unchanged_Polys\grants.shp
-
-        'K:\Polygons\MCPA\unchanged_Polys\Lot_Replat.shp
-
-        'K:\Polygons\MCPA\unchanged_Polys\MAP_INDEX.shp
-
-        'K:\Polygons\MCPA\unchanged_Polys\municipalities.shp
-
     End Sub
 
     Private Sub ZipToCountyFTP(filename As String, sourceFolder As String, zipLoc As String)
@@ -469,10 +430,10 @@ Module Module1
             sFile = files.Item(k).ToString
             newFile = Path.GetFileNameWithoutExtension(sFile)
 
-            If newFile.Contains("2019qi") Or newFile.Contains("2019qv") Or newFile.Contains("2020qi") Or newFile.Contains("2020qv") _
+            If newFile.Contains("2020qi") Or newFile.Contains("2020qv") Or newFile.Contains("2021qi") Or newFile.Contains("2021qv") _
             Or newFile.Contains("COMM") Or newFile.Contains("Exempt21") Or newFile.Contains("Freepapoly") Or newFile.Contains("Futurepapoly") _
             Or newFile.Contains("FutureFreepapoly") Or newFile.Contains("LandModel") Or newFile.Contains("lndchg21") Or newFile.Contains("lrateac") _
-            Or newFile.Contains("lratenoac") Or newFile.Contains("N Parcel") Or newFile.Contains("NewAg") Or newFile.Contains("No_lndRTEchg_18_to_20_All") _
+            Or newFile.Contains("lratenoac") Or newFile.Contains("N Parcel") Or newFile.Contains("NewAg") Or newFile.Contains("No_lndRTEchg_19_to_21_All") _
             Or newFile.Contains("nooasis") Or newFile.Contains("papoly") Or newFile.Contains("parcel") Or newFile.Contains("tang") Or newFile.Contains("Valchg21") Then
                 If Not DeleteFiles(sFile) Then Return
             End If
@@ -484,10 +445,10 @@ Module Module1
             sFile = files.Item(i).ToString
             newFile = Path.GetFileNameWithoutExtension(sFile)
 
-            If newFile.Contains("2019qi") Or newFile.Contains("2019qv") Or newFile.Contains("2020qi") Or newFile.Contains("2020qv") _
+            If newFile.Contains("2020qi") Or newFile.Contains("2020qv") Or newFile.Contains("2021qi") Or newFile.Contains("2021qv") _
             Or newFile.Contains("COMM") Or newFile.Contains("Exempt21") Or newFile.Contains("Freepapoly") Or newFile.Contains("Futurepapoly") _
             Or newFile.Contains("FutureFreepapoly") Or newFile.Contains("LandModel") Or newFile.Contains("lndchg21") Or newFile.Contains("lrateac") _
-            Or newFile.Contains("lratenoac") Or newFile.Contains("N Parcel") Or newFile.Contains("NewAg") Or newFile.Contains("No_lndRTEchg_18_to_20_All") _
+            Or newFile.Contains("lratenoac") Or newFile.Contains("N Parcel") Or newFile.Contains("NewAg") Or newFile.Contains("No_lndRTEchg_19_to_21_All") _
             Or newFile.Contains("nooasis") Or newFile.Contains("papoly") Or newFile.Contains("parcel") Or newFile.Contains("tang") Or newFile.Contains("Valchg21") Then
                 If Not CopyFiles(sFile, endDEST & Path.GetFileName(sFile), False) Then Return
             End If
@@ -510,10 +471,10 @@ Module Module1
             sFile = files.Item(i).ToString
             newFile = Path.GetFileNameWithoutExtension(sFile)
 
-            If newFile.Contains("2019qi") Or newFile.Contains("2019qv") Or newFile.Contains("2020qi") Or newFile.Contains("2020qv") _
+            If newFile.Contains("2020qi") Or newFile.Contains("2020qv") Or newFile.Contains("2021qi") Or newFile.Contains("2021qv") _
             Or newFile.Contains("COMM") Or newFile.Contains("Exempt21") Or newFile.Contains("Freepapoly") Or newFile.Contains("Futurepapoly") _
             Or newFile.Contains("FutureFreepapoly") Or newFile.Contains("LandModel") Or newFile.Contains("lndchg21") Or newFile.Contains("lrateac") _
-            Or newFile.Contains("lratenoac") Or newFile.Contains("N Parcel") Or newFile.Contains("NewAg") Or newFile.Contains("No_lndRTEchg_18_to_20_All") _
+            Or newFile.Contains("lratenoac") Or newFile.Contains("N Parcel") Or newFile.Contains("NewAg") Or newFile.Contains("No_lndRTEchg_19_to_21_All") _
             Or newFile.Contains("nooasis") Or newFile.Contains("papoly") Or newFile.Contains("parcel") Or newFile.Contains("Parcel_LNDUSE_G") _
             Or newFile.Contains("tang") Or newFile.Contains("Valchg21") Then
                 If Not CopyFiles(sFile, endDEST & Path.GetFileName(sFile), True) Then Return
@@ -539,8 +500,8 @@ Module Module1
             sFile = files.Item(k).ToString
             newFile = Path.GetFileNameWithoutExtension(sFile)
 
-            If newFile.Contains("BILLBOARDS") Or newFile.Contains("Blocks") Or newFile.Contains("Condo") Or newFile.Contains("County_Boundary") Or newFile.Contains("Govtlot") _
-                Or newFile.Contains("grants") Or newFile.Contains("Lot_Replat") Or newFile.Contains("lots") Or newFile.Contains("MAP_INDEX") Or newFile.Contains("municipalities") _
+            If newFile.Contains("BILLBOARDS") Or newFile.Contains("Blocks") Or newFile.Contains("Condo") Or newFile.Contains("County_Boundary") Or newFile.Contains("Future_Land_Use") Or newFile.Contains("Govtlot") _
+                Or newFile.Contains("grants") Or newFile.Contains("Lot_Replat") Or newFile.Contains("lots") Or newFile.Contains("MAP_INDEX") Or newFile.Contains("millage_groups") Or newFile.Contains("municipalities") _
                 Or newFile.Contains("section") Or newFile.Contains("subhist") Or newFile.Contains("subbdy") Or newFile.Contains("Township") Or newFile.Contains("water") Then
                 If Not DeleteFiles(sFile) Then Return
             End If
@@ -552,8 +513,8 @@ Module Module1
             sFile = files.Item(i).ToString
             newFile = Path.GetFileNameWithoutExtension(sFile)
 
-            If newFile.Contains("BILLBOARDS") Or newFile.Contains("Blocks") Or newFile.Contains("Condo") Or newFile.Contains("County_Boundary") Or newFile.Contains("Govtlot") _
-                Or newFile.Contains("grants") Or newFile.Contains("Lot_Replat") Or newFile.Contains("lots") Or newFile.Contains("MAP_INDEX") Or newFile.Contains("municipalities") _
+            If newFile.Contains("BILLBOARDS") Or newFile.Contains("Blocks") Or newFile.Contains("Condo") Or newFile.Contains("County_Boundary") Or newFile.Contains("Future_Land_Use") Or newFile.Contains("Govtlot") _
+                Or newFile.Contains("grants") Or newFile.Contains("Lot_Replat") Or newFile.Contains("lots") Or newFile.Contains("MAP_INDEX") Or newFile.Contains("millage_groups") Or newFile.Contains("municipalities") _
                 Or newFile.Contains("section") Or newFile.Contains("subhist") Or newFile.Contains("subbdy") Or newFile.Contains("Township") Or newFile.Contains("water") Then
                 If Not CopyFiles(sFile, wDrive & Path.GetFileName(sFile), False) Then Return
             End If
@@ -569,8 +530,8 @@ Module Module1
             sFile = files.Item(k).ToString
             newFile = Path.GetFileNameWithoutExtension(sFile)
 
-            If newFile.Contains("Blocks") Or newFile.Contains("Condo") Or newFile.Contains("County_Boundary") Or newFile.Contains("Govtlot") Or newFile.Contains("grants") _
-                Or newFile.Contains("Lot_Replat") Or newFile.Contains("lots") Or newFile.Contains("MAP_INDEX") Or newFile.Contains("municipalities") Or newFile.Contains("section") _
+            If newFile.Contains("Blocks") Or newFile.Contains("Condo") Or newFile.Contains("County_Boundary") Or newFile.Contains("Future_Land_Use") Or newFile.Contains("Govtlot") Or newFile.Contains("grants") _
+                Or newFile.Contains("Lot_Replat") Or newFile.Contains("lots") Or newFile.Contains("MAP_INDEX") Or newFile.Contains("millage_groups") Or newFile.Contains("municipalities") Or newFile.Contains("section") _
                 Or newFile.Contains("subhist") Or newFile.Contains("subbdy") Or newFile.Contains("Township") Or newFile.Contains("water") Then
                 If Not DeleteFiles(sFile) Then Return
             End If
@@ -582,8 +543,8 @@ Module Module1
             sFile = files.Item(i).ToString
             newFile = Path.GetFileNameWithoutExtension(sFile)
 
-            If newFile.Contains("Blocks") Or newFile.Contains("Condo") Or newFile.Contains("County_Boundary") Or newFile.Contains("Govtlot") Or newFile.Contains("grants") _
-                Or newFile.Contains("Lot_Replat") Or newFile.Contains("lots") Or newFile.Contains("MAP_INDEX") Or newFile.Contains("municipalities") Or newFile.Contains("section") _
+            If newFile.Contains("Blocks") Or newFile.Contains("Condo") Or newFile.Contains("County_Boundary") Or newFile.Contains("Future_Land_Use") Or newFile.Contains("Govtlot") Or newFile.Contains("grants") _
+                Or newFile.Contains("Lot_Replat") Or newFile.Contains("lots") Or newFile.Contains("MAP_INDEX") Or newFile.Contains("millage_groups") Or newFile.Contains("municipalities") Or newFile.Contains("section") _
                 Or newFile.Contains("subhist") Or newFile.Contains("subbdy") Or newFile.Contains("Township") Or newFile.Contains("water") Then
                 If Not CopyFiles(sFile, cdDrive & Path.GetFileName(sFile), False) Then Return
             End If
@@ -596,11 +557,13 @@ Module Module1
         'Blocks
         'Condo
         'County_Boundary
+        'Future_Land_Use
         'Govtlot
         'grants
         'Lot_Replat
         'lots
         'MAP_INDEX
+        'millage_groups
         'municipalities
         'section
         'subhist
@@ -612,7 +575,9 @@ Module Module1
         'Blocks
         'Condo
         'County_Boundary
+        'Future_Land_Use
         'lots
+        'millage_groups
         'section
         'subhist
         'subbdy
