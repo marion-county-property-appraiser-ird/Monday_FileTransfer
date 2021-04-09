@@ -501,7 +501,7 @@ Module Module1
             newFile = Path.GetFileNameWithoutExtension(sFile)
 
             If newFile.Contains("BILLBOARDS") Or newFile.Contains("Blocks") Or newFile.Contains("Condo") Or newFile.Contains("County_Boundary") Or newFile.Contains("Future_Land_Use") Or newFile.Contains("Govtlot") _
-                Or newFile.Contains("grants") Or newFile.Contains("Lot_Replat") Or newFile.Contains("lots") Or newFile.Contains("MAP_INDEX") Or newFile.Contains("millage_groups") Or newFile.Contains("municipalities") _
+                Or newFile.Contains("grants") Or newFile.Contains("Lot_Replat") Or newFile.Contains("lots") Or newFile.Contains("MAP_INDEX") Or newFile.Contains("municipalities") _
                 Or newFile.Contains("section") Or newFile.Contains("subhist") Or newFile.Contains("subbdy") Or newFile.Contains("Township") Or newFile.Contains("water") Then
                 If Not DeleteFiles(sFile) Then Return
             End If
@@ -514,7 +514,7 @@ Module Module1
             newFile = Path.GetFileNameWithoutExtension(sFile)
 
             If newFile.Contains("BILLBOARDS") Or newFile.Contains("Blocks") Or newFile.Contains("Condo") Or newFile.Contains("County_Boundary") Or newFile.Contains("Future_Land_Use") Or newFile.Contains("Govtlot") _
-                Or newFile.Contains("grants") Or newFile.Contains("Lot_Replat") Or newFile.Contains("lots") Or newFile.Contains("MAP_INDEX") Or newFile.Contains("millage_groups") Or newFile.Contains("municipalities") _
+                Or newFile.Contains("grants") Or newFile.Contains("Lot_Replat") Or newFile.Contains("lots") Or newFile.Contains("MAP_INDEX") Or newFile.Contains("municipalities") _
                 Or newFile.Contains("section") Or newFile.Contains("subhist") Or newFile.Contains("subbdy") Or newFile.Contains("Township") Or newFile.Contains("water") Then
                 If Not CopyFiles(sFile, wDrive & Path.GetFileName(sFile), False) Then Return
             End If
@@ -530,7 +530,7 @@ Module Module1
             sFile = files.Item(k).ToString
             newFile = Path.GetFileNameWithoutExtension(sFile)
 
-            If newFile.Contains("Blocks") Or newFile.Contains("Condo") Or newFile.Contains("County_Boundary") Or newFile.Contains("Future_Land_Use") Or newFile.Contains("Govtlot") Or newFile.Contains("grants") _
+            If newFile.Contains("Blocks") Or newFile.Contains("Condo") Or newFile.Contains("County_Boundary") Or newFile.Contains("Govtlot") Or newFile.Contains("grants") _
                 Or newFile.Contains("Lot_Replat") Or newFile.Contains("lots") Or newFile.Contains("MAP_INDEX") Or newFile.Contains("millage_groups") Or newFile.Contains("municipalities") Or newFile.Contains("section") _
                 Or newFile.Contains("subhist") Or newFile.Contains("subbdy") Or newFile.Contains("Township") Or newFile.Contains("water") Then
                 If Not DeleteFiles(sFile) Then Return
@@ -543,7 +543,7 @@ Module Module1
             sFile = files.Item(i).ToString
             newFile = Path.GetFileNameWithoutExtension(sFile)
 
-            If newFile.Contains("Blocks") Or newFile.Contains("Condo") Or newFile.Contains("County_Boundary") Or newFile.Contains("Future_Land_Use") Or newFile.Contains("Govtlot") Or newFile.Contains("grants") _
+            If newFile.Contains("Blocks") Or newFile.Contains("Condo") Or newFile.Contains("County_Boundary") Or newFile.Contains("Govtlot") Or newFile.Contains("grants") _
                 Or newFile.Contains("Lot_Replat") Or newFile.Contains("lots") Or newFile.Contains("MAP_INDEX") Or newFile.Contains("millage_groups") Or newFile.Contains("municipalities") Or newFile.Contains("section") _
                 Or newFile.Contains("subhist") Or newFile.Contains("subbdy") Or newFile.Contains("Township") Or newFile.Contains("water") Then
                 If Not CopyFiles(sFile, cdDrive & Path.GetFileName(sFile), False) Then Return
@@ -575,9 +575,7 @@ Module Module1
         'Blocks
         'Condo
         'County_Boundary
-        'Future_Land_Use
         'lots
-        'millage_groups
         'section
         'subhist
         'subbdy
